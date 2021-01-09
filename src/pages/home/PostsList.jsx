@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
-import PostSearchById from './PostSearchById'
-import { PostForm } from '../../components'
+import { PostCard } from '../../components'
+
 
 const DataFetching = () => {
   const [loading, setLoading] = useState(false)
@@ -10,7 +9,7 @@ const DataFetching = () => {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    axios.get('https://jsonplaceholder.typicode.com/photos')
       // .then(res => { // <!-- if (res) need to change json -->
       //   console.log('res', res)
       //   setLoading(true)
@@ -37,26 +36,7 @@ const DataFetching = () => {
   error && console.log('Error')
 
   return (
-    !loading &&
-      error ?
-      <span>Network error!</span>
-      :
-      <div>
-        <PostSearchById />
-        <hr/>
-        <PostForm />
-        <ul>
-          {posts?.length > 0 &&
-            posts.map((x, i) => (
-              <li key={i}>
-                <Link to={`/home/posts/detail/${x.id}`}>
-                  {x.title}
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+    <PostCard data={posts} />
   )
 }
 
